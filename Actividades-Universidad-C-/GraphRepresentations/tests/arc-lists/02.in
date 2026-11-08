@@ -1,0 +1,10 @@
+5 9
+ADD 1 5
+ADD 2 5
+ADD 3 5
+IN 5
+OUT 5
+HAS 2 5
+HAS 5 2
+IN 4
+OUT 3
