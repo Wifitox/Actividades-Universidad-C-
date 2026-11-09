@@ -5,24 +5,31 @@
 using namespace std;
 
 class EdgeListGraph {
-    // Add the data members you need.
+    struct Edge { int from, to; };
+
+    int n;
+    vector<Edge> edges;
+
 public:
     explicit EdgeListGraph(int n) {
-        // your code here
+        this->n = n;
     }
 
     void addEdge(int u, int v) {
-        // your code here
+        edges.push_back({u, v});
     }
 
     bool hasEdge(int u, int v) const {
-        // your code here
+        for (const Edge& e : edges)
+            if (e.from == u && e.to == v) return true;
         return false;
     }
 
     vector<int> neighbors(int u) const {
-        // your code here
-        return {};
+        vector<int> res;
+        for (const Edge& e : edges)
+            if (e.from == u) res.push_back(e.to);
+        return res;
     }
 };
 

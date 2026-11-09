@@ -4,31 +4,60 @@
 using namespace std;
 
 class ArcListGraph {
-    // Define Vertex/Arc and store them.
+    struct Arc {
+        int from, to;
+        Arc* nextOut;   
+        Arc* nextIn;    
+    };
+    struct Vertex {
+        Arc* out = nullptr;
+        Arc* in = nullptr;
+    };
+
+    vector<Vertex> g;
+
 public:
-    explicit ArcListGraph(int n) {
-        // your code here
+    explicit ArcListGraph(int n) : g(n + 1) {}
+
+    ~ArcListGraph() {
+        for (int i = 0; i < (int)g.size(); ++i) {
+            Arc* a = g[i].out;
+            while (a != nullptr) {
+                Arc* next = a->nextOut;
+                delete a;
+                a = next;
+            }
+        }
     }
 
     void addEdge(int u, int v) {
-        // your code here
+        if (hasEdge(u, v)) return;
+        Arc* a = new Arc{u, v, g[u].out, g[v].in};
+        g[u].out = a;
+        g[v].in = a;
     }
 
     bool hasEdge(int u, int v) const {
-        // your code here
+        for (Arc* a = g[u].out; a != nullptr; a = a->nextOut)
+            if (a->to == v) return true;
         return false;
     }
 
     vector<int> outNeighbors(int u) const {
-        // your code here
-        return {};
+        vector<int> res;
+        for (Arc* a = g[u].out; a != nullptr; a = a->nextOut)
+            res.push_back(a->to);
+        return res;
     }
 
     vector<int> inNeighbors(int v) const {
-        // your code here
-        return {};
+        vector<int> res;
+        for (Arc* a = g[v].in; a != nullptr; a = a->nextIn)
+            res.push_back(a->from);
+        return res;
     }
 };
+
 
 static void printVec(const vector<int>& a) {
     if (a.empty()) {

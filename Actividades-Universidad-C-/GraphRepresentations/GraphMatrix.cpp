@@ -3,25 +3,21 @@
 #include <vector>
 using namespace std;
 
-class MatrixGraph {
-    // Add the data members you need.
+class MatrixGraph {                    
+    int n;
+    vector<vector<bool>> adj;          
 public:
-    explicit MatrixGraph(int n) {
-        // your code here
-    }
+    explicit MatrixGraph(int n) : n{n}, adj(n + 1, vector<bool>(n + 1, false)) {}
 
-    void addEdge(int u, int v) {
-        // your code here
-    }
+    void addEdge(int u, int v) { adj[u][v] = true; }
 
-    bool hasEdge(int u, int v) const {
-        // your code here
-        return false;
-    }
+    bool hasEdge(int u, int v) const { return adj[u][v]; }
 
     vector<int> neighbors(int u) const {
-        // your code here
-        return {};
+        vector<int> out;
+        for (int v = 1; v <= n; ++v)
+            if (adj[u][v]) out.push_back(v);
+        return out;
     }
 };
 

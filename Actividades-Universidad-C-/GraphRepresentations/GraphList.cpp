@@ -3,28 +3,24 @@
 #include <vector>
 using namespace std;
 
-// Implement a directed graph with vertices 1..n.
 class ListGraph {
-    // Add the data members you need here.
+    vector<vector<int>> adj;           
 public:
-    explicit ListGraph(int n) {
-        // your code here
-    }
+    explicit ListGraph(int n) : adj(n + 1) {}
 
-    // Adds the directed arc u -> v.
+
     void addEdge(int u, int v) {
-        // your code here
+        adj[u].push_back(v);
     }
 
     bool hasEdge(int u, int v) const {
-        // your code here
+        for (int elem : adj[u])
+            if (elem == v) return true;
         return false;
     }
 
     const vector<int>& neighbors(int u) const {
-        // your code here
-        static const vector<int> empty;
-        return empty;
+        return adj[u];
     }
 };
 
