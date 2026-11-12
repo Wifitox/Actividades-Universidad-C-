@@ -2,15 +2,14 @@
 
 using namespace std;
 
-class Node {
-    public:
-        int value;
-        Node* next;
+struct Node {
+    int value;
+    Node* next;
 
-        Node(int value) {
-            this->value = value;
-            next = nullptr;
-        }
+    Node(int value) {
+        this->value = value;
+        next = nullptr;
+    }
 };
 
 class Stack {
